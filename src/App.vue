@@ -6,6 +6,8 @@
     src="./assets/logo.png"
   >
 
+  <p v-if="child">{{ child.num }}</p>
+
   <div>
     <button @click="child.sayHi('template')">Say Hi</button>
   </div>
@@ -17,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import Child from './components/Child.vue';
 
 export default defineComponent({
@@ -34,18 +36,18 @@ export default defineComponent({
 
     onMounted( () => {
       /** 
-       * 可选方式：通过 ? 来将目标设置为可选，避免节点未挂载成功时出现错误
+       * 可选方式一：通过 TS 的可选符 ? 来将目标设置为可选，避免出现错误
        * 这个方式不能修改子组件的值
        */
       console.log(logo.value?.getAttribute('src'));
-      console.log(child.value?.isShow);
+      console.log(child.value?.num);
       child.value?.sayHi('use ? in onMounted');
 
       console.log('------------------------------');
       
 
       /** 
-       * 可选方式：判断 value 存在时再执行操作
+       * 可选方式二：判断 value 存在时再执行操作
        * 这个方式可以正常修改子组件的值
        */
 
@@ -54,8 +56,8 @@ export default defineComponent({
       }
 
       if ( child.value ) {
-        child.value.isShow = true;
-        console.log(child.value.isShow);
+        child.value.num = 222;
+        console.log(child.value.num);
         child.value.sayHi('use if in onMounted');
       }
     })

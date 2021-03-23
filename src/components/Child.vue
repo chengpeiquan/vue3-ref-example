@@ -13,14 +13,21 @@ export default defineComponent({
     msg: String
   },
   setup () {
-    const isShow = ref<boolean>(false);
+    const num = ref<number>(111);
     const sayHi = (source: string): void => {
       console.log(`Hi —— from ${source}.`);
     }
 
-    // 需要return出去，父组件才可以拿到
+    // 父组件的模板可以响应更新
+    setTimeout(() => {
+      num.value = 333;
+    }, 2000);
+
     return {
-      isShow,
+      // 数据不 return 的话，方式一会拿不到
+      num,
+
+      // 方法需要 return 出去，才能执行
       sayHi
     }
   }
