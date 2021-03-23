@@ -31,7 +31,7 @@ export default defineComponent({
     // DOM
     const logo = ref<HTMLImageElement | null>(null);
 
-    // 子组件，使用 typeof 类型保护
+    // 子组件，使用 typeof 获取子组件的类型
     const child = ref<typeof Child | null>(null);
 
     onMounted( () => {
